@@ -76,7 +76,7 @@ class Scanner {
       }
     }
 
-    scannerPositions.append(scanner.scannerPositions[0])
+    scannerPositions.append(contentsOf: scanner.scannerPositions)
     print("Successfully merged scanner \(scanner.identifier) into scanner \(identifier)")
   }
 
@@ -242,7 +242,7 @@ extension Scanner: CustomStringConvertible {
 func getInput() throws -> String {
   let currentDirectoryURL = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
   let scriptUrl = URL(fileURLWithPath: CommandLine.arguments[0], relativeTo: currentDirectoryURL)
-  let inputUrl = URL(fileURLWithPath: "./input.txt", relativeTo: scriptUrl)
+  let inputUrl = URL(fileURLWithPath: "./testInput.txt", relativeTo: scriptUrl)
 
   let fileContents = try String(contentsOf: inputUrl, encoding: .utf8)
   return fileContents
@@ -260,6 +260,76 @@ func getScanners(from input: String) -> [Scanner] {
 
 let input = try getInput()
 var scanners = getScanners(from: input)
+
+// Manual-ass way that I can do because I now have
+// knowledge on how the inputs combine
+// let zeroth = scanners[0]
+// zeroth.merge(scanner: scanners[25])
+// zeroth.resetAndRotateScanner(to: (0,0,0))
+
+// let sixth = scanners[6]
+// sixth.merge(scanner: scanners[20])
+// sixth.resetAndRotateScanner(to: (0,0,0))
+
+// let last = scanners[27]
+// last.merge(scanner: scanners[10])
+// last.resetAndRotateScanner(to: (0,0,0))
+// last.merge(scanner: scanners[19])
+// last.resetAndRotateScanner(to: (0,0,0))
+// last.merge(scanner: scanners[26])
+// last.resetAndRotateScanner(to: (0,0,0))
+// last.merge(scanner: scanners[4])
+// last.resetAndRotateScanner(to: (0,0,0))
+// last.merge(scanner: scanners[12])
+// last.resetAndRotateScanner(to: (0,0,0))
+// last.merge(scanner: scanners[13])
+// last.resetAndRotateScanner(to: (0,0,0))
+// last.merge(scanner: scanners[21])
+// last.resetAndRotateScanner(to: (0,0,0))
+// last.merge(scanner: scanners[22])
+// last.resetAndRotateScanner(to: (0,0,0))
+// last.merge(scanner: scanners[3])
+// last.resetAndRotateScanner(to: (0,0,0))
+// last.merge(scanner: scanners[5])
+// last.resetAndRotateScanner(to: (0,0,0))
+// last.merge(scanner: scanners[11])
+// last.resetAndRotateScanner(to: (0,0,0))
+// last.merge(scanner: scanners[14])
+// last.resetAndRotateScanner(to: (0,0,0))
+// last.merge(scanner: scanners[15])
+// last.resetAndRotateScanner(to: (0,0,0))
+// last.merge(scanner: scanners[1])
+// last.resetAndRotateScanner(to: (0,0,0))
+// last.merge(scanner: scanners[7])
+// last.resetAndRotateScanner(to: (0,0,0))
+// last.merge(scanner: scanners[8])
+// last.resetAndRotateScanner(to: (0,0,0))
+// last.merge(scanner: scanners[9])
+// last.resetAndRotateScanner(to: (0,0,0))
+// last.merge(scanner: scanners[16])
+// last.resetAndRotateScanner(to: (0,0,0))
+// last.merge(scanner: scanners[17])
+// last.resetAndRotateScanner(to: (0,0,0))
+// last.merge(scanner: scanners[18])
+// last.resetAndRotateScanner(to: (0,0,0))
+// last.merge(scanner: scanners[24])
+// last.resetAndRotateScanner(to: (0,0,0))
+// zeroth.merge(scanner: last)
+// zeroth.resetAndRotateScanner(to: (0,0,0))
+// zeroth.merge(scanner: scanners[2])
+// zeroth.resetAndRotateScanner(to: (0,0,0))
+// zeroth.merge(scanner: scanners[23])
+// zeroth.resetAndRotateScanner(to: (0,0,0))
+// zeroth.merge(scanner: sixth)
+// zeroth.resetAndRotateScanner(to: (0,0,0))
+
+// print(zeroth)
+// print("Part 1 Answer: \(zeroth.beacons.count)")
+
+
+// Running everyone against the others
+// This takes 2 hours and counting.
+// Guaranteed to work I suspect, but looooooong
 var untriedScanners: [Scanner] = []
 var triedScanners: [Scanner] = scanners
 
@@ -276,6 +346,8 @@ repeat {
       if (mergedScannerCount < triedScanner.scannerPositions.count) {
         hadSuccess = true
       }
+      triedScanner.resetAndRotateScanner(to: (0,0,0))
+      newScanner.resetAndRotateScanner(to: (0,0,0))
     }
 
     if (hadSuccess == false) {
@@ -284,7 +356,14 @@ repeat {
   }
 } while triedScanners.count > 1
 
+print(triedScanners[0])
+print("Part 1 Answer: \(triedScanners[0].beacons.count)")
 
+
+// Starting from 27
+// This fails with only 2 remaining, 6 and 20
+// Also takes over an hour to run. :(
+//
 // let baseScanner = scanners.last!
 // scanners = Array(scanners.dropLast())
 
@@ -303,8 +382,8 @@ repeat {
 //   }
 // }
 
-print(triedScanners.first!)
-print("Part 1 Answer: \(triedScanners.first!.beacons.count)")
+// print(triedScanners.first!)
+// print("Part 1 Answer: \(triedScanners.first!.beacons.count)")
 
 // print(scanners[25].beacons.count)
 // scanners[0].merge(scanner: scanners[25])
