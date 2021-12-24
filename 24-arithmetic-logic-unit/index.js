@@ -9,7 +9,6 @@ const alu = (inputInstructions, inputs) => {
     y: 0,
     z: 0,
   };
-  const previousRegisters = [];
 
   const processSecondInput = (inputCharacter) => {
     if (
