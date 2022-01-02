@@ -1,6 +1,8 @@
 # 2017 - Day 2
 
-[https://adventofcode.com/2021/day/2](https://adventofcode.com/2021/day/2)
+[https://adventofcode.com/2017/day/2](https://adventofcode.com/2017/day/2)
+
+Nothing too complicated in this one. Could make Part 2 more efficient by breaking out of the loop earlier, but the problem space is so small it's not worth the code.
 
 ## Part 1
 
