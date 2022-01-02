@@ -1,4 +1,4 @@
-# Advent of Code 2021
+# Advent of Code
 
 My solutions to [Advent of Code](https://adventofcode.com/), as well as other interesting problems.
 
