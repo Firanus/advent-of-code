@@ -13,4 +13,28 @@ So far, years I've tackled:
 - [2017](https://adventofcode.com/2017) - In progress
 - [2021](https://adventofcode.com/2021) - **Complete**
 
-My solutions to [Advent of Code 2021](https://adventofcode.com/2021).
+## Helpful Bits of Code
+
+There are a number of helpful algorithms and approaches to problems which get used multiple times. This is me calling them out to make them easy to find later.
+
+### Trees and Tree Traversal
+
+These problems are all about trees, and traversing them.
+
+- **2017 Day 7** - The problem is essentially constructing a tree from your input and then finding various properties of it.
+- **2021 Day 18** - Snailfish. This is a problem about decoding a series of brackets containing pairs of numbers, which have random rules for expansion. One way of viewing the problem is that the brackets just represent a BST. You can then build the structure and analyse it accordingly. Note that while a tree is a valid way to go about this, avoiding trees entirely also works.
+
+### Pathfinding - e.g. Djikstra's Algorithm
+
+These problems involve pathfinding and their associated algorithms in some way. Examples include Djikstra's or A\*.
+
+- **2021 Day 15** - Chiton. A pure pathfinding problem. You're given a grid of numbers ("risk levels") and asked to find a path which minimises total risk. Classic use case for Djikstra.
+- **2021 Day 23** - This problem introduces a game and asks you to find the most efficient solution. I ended up having to write a full simulation of the game, and then run the game states through Djikstra's to find the shortest "path" from start to finish.
+
+### Memoization and Compression
+
+These problems rely on you storing information in the problem in a more optimal way than the problem text initially suggests, usually to get around the fact that you're dealing with data that expands exponentially.
+
+- **2021 Day 6** - Lanternfish. The fish can only have one of 8 ages and spawn new fishes when they hit the highest age. You need to store the ages in a map.
+- **2021 Day 14** - Extended Polymerization. This problem is about storing information about a rapidly expanding polymer. Trickier, as the order of the letters in the string matters, but actually not so bad, as all you're really concerned about is pair counts. Solved by storing a map of both the individual counts of items, and the pairs of items.
+- **2021 Day 21** - Dirac Dice. This problem introduces many many game states in the second part. Finding an efficient way to store them is the key to a quick solution.
