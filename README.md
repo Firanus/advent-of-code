@@ -13,6 +13,12 @@ So far, years I've tackled:
 - [2017](https://adventofcode.com/2017) - In progress
 - [2021](https://adventofcode.com/2021) - **Complete**
 
+## Follow-up Tasks
+
+The following is a reference to follow up tasks I've made notes on in other places that would be fun to tackle. More information is provided in the READMEs of the day in question.
+
+- 2017 Day 7 - Use GraphViz to visualize tree structures
+
 ## Helpful Bits of Code
 
 There are a number of helpful algorithms and approaches to problems which get used multiple times. This is me calling them out to make them easy to find later.

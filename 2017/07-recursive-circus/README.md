@@ -11,3 +11,12 @@ To solve both parts, run the following from the project root:
 ```sh
 node 2017/07-recursive-circus/index.js
 ```
+
+## Follow Up Task
+
+I've just been looking into GraphViz, a tool for visualizing graphs, and it looks perfect. A really simple thing to play with, with intuitive rules that could be incredibly useful for problems with trees, graphs and the like. Would looooove to get these graphs visualised in GraphViz, and use that as a jumping off point for other visualizations.
+
+Resources:
+
+- [Main GraphViz size](https://graphviz.org/)
+- [Article introducing basic functionality](https://naildrivin5.com/blog/2016/12/08/learn-graphviz-and-up-your-diagramming-game.html)
