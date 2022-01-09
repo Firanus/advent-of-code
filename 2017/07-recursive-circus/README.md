@@ -12,11 +12,31 @@ To solve both parts, run the following from the project root:
 node 2017/07-recursive-circus/index.js
 ```
 
-## Follow Up Task
+## GraphViz
 
-I've just been looking into GraphViz, a tool for visualizing graphs, and it looks perfect. A really simple thing to play with, with intuitive rules that could be incredibly useful for problems with trees, graphs and the like. Would looooove to get these graphs visualised in GraphViz, and use that as a jumping off point for other visualizations.
+I've just been looking into GraphViz, a tool for visualizing graphs, and it looks like a great deal of fun.
 
-Resources:
+As a simple starting point, I've written a bit of code to turn the inputs of this problem into Graphviz charts. To run the graph-generation code, just run:
+
+```sh
+node 2017/07-recursive-circus/graphs.ts
+```
+
+This will generate a `.dot` file. Have a look in it to see how a GraphViz file is set up.
+
+GraphViz files can then be turned into images. To do so, you'll need to install `dot`. Do so with the command:
+
+```sh
+brew install graphviz
+```
+
+And then create an image of your graph with the command (in this case, run from the project root)
+
+```sh
+dot -Tsvg -o2017/07-recursive-circus/graph.svg ./2017/07-recursive-circus/inputGraph.dot
+```
+
+For more information on GraphViz, have a look at the following resources:
 
 - [Main GraphViz size](https://graphviz.org/)
 - [Article introducing basic functionality](https://naildrivin5.com/blog/2016/12/08/learn-graphviz-and-up-your-diagramming-game.html)
