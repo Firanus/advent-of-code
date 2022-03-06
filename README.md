@@ -37,6 +37,8 @@ These problems involve pathfinding and their associated algorithms in some way. 
 - **2021 Day 15** - Chiton. A pure pathfinding problem. You're given a grid of numbers ("risk levels") and asked to find a path which minimises total risk. Classic use case for Djikstra.
 - **2021 Day 23** - This problem introduces a game and asks you to find the most efficient solution. I ended up having to write a full simulation of the game, and then run the game states through Djikstra's to find the shortest "path" from start to finish.
 
+- **2021 Day 11** - Not strictly a pathfinding problem, but interesting nonetheless, because it requires you to navigate a set path on a hexagonal grid.
+
 ### Memoization and Compression
 
 These problems rely on you storing information in the problem in a more optimal way than the problem text initially suggests, usually to get around the fact that you're dealing with data that expands exponentially.
