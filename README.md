@@ -11,13 +11,14 @@ For the problems themselves, our approach is very much "just get something that 
 So far, years I've tackled:
 
 - [2017](https://adventofcode.com/2017) - In progress
+- [2019](https://adventofcode.com/2019) - In progress
 - [2021](https://adventofcode.com/2021) - **Complete**
 
 ## Follow-up Tasks
 
 The following is a reference to follow up tasks I've made notes on in other places that would be fun to tackle. More information is provided in the READMEs of the day in question.
 
-- 2017 Day 7 - Use GraphViz to visualize tree structures
+- None at this point
 
 ## Helpful Bits of Code
 
@@ -46,3 +47,9 @@ These problems rely on you storing information in the problem in a more optimal 
 - **2021 Day 6** - Lanternfish. The fish can only have one of 8 ages and spawn new fishes when they hit the highest age. You need to store the ages in a map.
 - **2021 Day 14** - Extended Polymerization. This problem is about storing information about a rapidly expanding polymer. Trickier, as the order of the letters in the string matters, but actually not so bad, as all you're really concerned about is pair counts. Solved by storing a map of both the individual counts of items, and the pairs of items.
 - **2021 Day 21** - Dirac Dice. This problem introduces many many game states in the second part. Finding an efficient way to store them is the key to a quick solution.
+
+### Intcode Computer
+
+In **2019**, there are a number of problems that involve slowly building up a VM day-by-day. They are:
+
+- **Day 2** - We get the VM started
