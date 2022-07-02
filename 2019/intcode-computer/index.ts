@@ -2,16 +2,16 @@ import { processInstructionCode } from "./instructionCode";
 import { executeOperation, getOperation } from "./operations";
 import { getParametersForOperation } from "./parameters";
 
-export const runIntcodeComputerProgram = (
+export const runIntcodeComputerProgram = async (
   initialMemory: number[]
-): number[] => {
+): Promise<number[]> => {
   let instructionPointer = 0;
 
   let shouldContinueProgramExecution = true;
   let memory = [...initialMemory];
 
   while (shouldContinueProgramExecution) {
-    const { nextPointer, shouldContinueExecuting } = performNextOperation(
+    const { nextPointer, shouldContinueExecuting } = await performNextOperation(
       memory,
       instructionPointer
     );
@@ -22,10 +22,10 @@ export const runIntcodeComputerProgram = (
   return memory;
 };
 
-const performNextOperation = (
+const performNextOperation = async (
   memory: number[],
   currentPointer: number
-): { shouldContinueExecuting: boolean; nextPointer: number } => {
+): Promise<{ shouldContinueExecuting: boolean; nextPointer: number }> => {
   const instructionCode = memory[currentPointer];
   const { opCode, parameterCodes } = processInstructionCode(instructionCode);
 
@@ -36,7 +36,7 @@ const performNextOperation = (
     parameterCodes,
     instructionPointer: currentPointer,
   });
-  const { shouldContinueExecuting } = executeOperation({
+  const { shouldContinueExecuting } = await executeOperation({
     memory,
     operation,
     parameters,
