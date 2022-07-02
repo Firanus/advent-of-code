@@ -52,4 +52,5 @@ These problems rely on you storing information in the problem in a more optimal 
 
 In **2019**, there are a number of problems that involve slowly building up a VM day-by-day. They are:
 
-- **Day 2** - We get the VM started
+- **Day 2** - We get the VM started by introducing a basic VM that can handle addition and multiplication.
+- **Day 5** - We extend our VM to handle parameter modes, comparisons operations, jump operations, input and output. Phew!
