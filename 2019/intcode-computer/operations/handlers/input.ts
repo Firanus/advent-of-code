@@ -1,6 +1,6 @@
 import readline from "readline";
 
-import { getWriteAddress, readParameter } from "../../parameters";
+import { getWriteAddress } from "../../parameters";
 import { Parameter } from "../../parameters/types";
 
 // Parameter[0] is a write parameter

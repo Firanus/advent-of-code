@@ -11,8 +11,11 @@ export default (
 ) => {
   const resultAddress = getWriteAddress(parameters[2], memory);
 
-  const product =
-    readParameter(parameters[0], memory) * readParameter(parameters[1], memory);
+  const writeValue =
+    readParameter(parameters[0], memory) ===
+    readParameter(parameters[1], memory)
+      ? 1
+      : 0;
 
-  memory[resultAddress] = product;
+  memory[resultAddress] = writeValue;
 };

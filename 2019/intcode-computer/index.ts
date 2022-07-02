@@ -36,14 +36,19 @@ const performNextOperation = async (
     parameterCodes,
     instructionPointer: currentPointer,
   });
-  const { shouldContinueExecuting } = await executeOperation({
-    memory,
-    operation,
-    parameters,
-  });
+  const { shouldContinueExecuting, newInstructionPointerValue } =
+    await executeOperation({
+      memory,
+      operation,
+      parameters,
+    });
 
+  const nextPointer =
+    newInstructionPointerValue !== undefined
+      ? newInstructionPointerValue
+      : currentPointer + 1 + parameters.length;
   return {
     shouldContinueExecuting,
-    nextPointer: currentPointer + 1 + parameters.length,
+    nextPointer,
   };
 };
