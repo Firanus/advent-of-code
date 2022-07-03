@@ -35,6 +35,7 @@ These problems are all about trees, and traversing them.
 
 These problems involve pathfinding and their associated algorithms in some way. Examples include Djikstra's or A\*.
 
+- **2019 Day 6** - A simple pathfinding problem. You construct a grid from a list of connections, and then traverse over it twice with an elementary Djikstra's.
 - **2021 Day 15** - Chiton. A pure pathfinding problem. You're given a grid of numbers ("risk levels") and asked to find a path which minimises total risk. Classic use case for Djikstra.
 - **2021 Day 23** - This problem introduces a game and asks you to find the most efficient solution. I ended up having to write a full simulation of the game, and then run the game states through Djikstra's to find the shortest "path" from start to finish.
 
