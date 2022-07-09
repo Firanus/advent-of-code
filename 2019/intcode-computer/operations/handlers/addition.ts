@@ -1,7 +1,8 @@
 import { getWriteAddress, readParameter } from "../../parameters";
 import { Parameter } from "../../parameters/types";
 
-// Parameters[0] and [1] are read parameters
+// Parameter[0] is a read parameter
+// Parameter[1] is a read parameter
 // Parameter[2] is a write parameter
 
 export default (

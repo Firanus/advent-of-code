@@ -23,7 +23,10 @@ fs.readFile(
     initialMemory[1] = noun;
     initialMemory[2] = verb;
 
-    const [output] = await runIntcodeComputerProgram(initialMemory);
+    const { memory: returnedMemory } = await runIntcodeComputerProgram(
+      initialMemory
+    );
+    const [output] = returnedMemory;
 
     console.log("Part 1 Solution", output);
 
@@ -33,7 +36,10 @@ fs.readFile(
         const memory = [...initialMemory];
         memory[1] = noun;
         memory[2] = verb;
-        const [output] = await runIntcodeComputerProgram(memory);
+        const { memory: returnedMemory } = await runIntcodeComputerProgram(
+          memory
+        );
+        const [output] = returnedMemory;
 
         if (output === targetValue) {
           console.log("Part 2 Solution", 100 * noun + verb);

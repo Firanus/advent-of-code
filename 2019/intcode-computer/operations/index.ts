@@ -58,10 +58,14 @@ export const executeOperation = async ({
   memory,
   operation,
   parameters,
+  inputStream,
+  outputStream,
 }: {
   memory: number[];
   operation: Operation;
   parameters: Parameter[];
+  inputStream: number[];
+  outputStream: number[];
 }): Promise<{
   shouldContinueExecuting: boolean;
   newInstructionPointerValue?: number;
@@ -77,10 +81,10 @@ export const executeOperation = async ({
       );
       return { shouldContinueExecuting: true };
     case Operation.Input:
-      await handleInput(memory, parameters as [Parameter]);
+      await handleInput(memory, parameters as [Parameter], inputStream);
       return { shouldContinueExecuting: true };
     case Operation.Output:
-      handleOutput(memory, parameters as [Parameter]);
+      handleOutput(memory, parameters as [Parameter], outputStream);
       return { shouldContinueExecuting: true };
     case Operation.JumpIfTrue: {
       const newInstructionPointerValue = handleJumpIfTrue(

@@ -16,6 +16,24 @@ fs.readFile(
 
     const memory = [...initialMemory];
 
-    await runIntcodeComputerProgram(memory);
+    // Part 1
+    const { outputStream: part1OutputStream } = await runIntcodeComputerProgram(
+      memory,
+      [1]
+    );
+    part1OutputStream.map((outputValue, index) =>
+      index < part1OutputStream.length - 1
+        ? console.log("Diagnostic Code:", outputValue)
+        : console.log("Part 1 Answer: ", outputValue)
+    );
+
+    // Part 2
+    const { outputStream: part2OutputStream } = await runIntcodeComputerProgram(
+      memory,
+      [5]
+    );
+    part2OutputStream.map((outputValue) =>
+      console.log("Part 2 Answer: ", outputValue)
+    );
   }
 );

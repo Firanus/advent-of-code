@@ -23,10 +23,19 @@ const requestInput = async (): Promise<number> => {
   });
 };
 
-export default async (memory: number[], parameters: [Parameter]) => {
+export default async (
+  memory: number[],
+  parameters: [Parameter],
+  inputStream: number[]
+) => {
   const writeAddress = getWriteAddress(parameters[0], memory);
 
-  const inputValue = await requestInput();
+  let inputValue: number;
+  if (inputStream.length > 0) {
+    inputValue = inputStream.shift()!;
+  } else {
+    inputValue = await requestInput();
+  }
 
   memory[writeAddress] = inputValue;
 };
