@@ -55,3 +55,8 @@ In **2019**, there are a number of problems that involve slowly building up a VM
 
 - **Day 2** - We get the VM started by introducing a basic VM that can handle addition and multiplication.
 - **Day 5** - We extend our VM to handle parameter modes, comparisons operations, jump operations, input and output. Phew!
+- **Day 7** - We extend our VM to be able to block execution til it's received an input, and then string a few computers together. Fun.
+
+### Miscellaneous Algorithms
+
+- **Permutations: 2019 Day 7** - As part of this problem, we had to calculate all permutations of items in a list. Used that as an opportunity to introduce Heap's algorithm.
