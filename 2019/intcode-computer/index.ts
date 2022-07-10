@@ -1,39 +1,55 @@
 import { processInstructionCode } from "./instructionCode";
 import { executeOperation, getOperation } from "./operations";
 import { getParametersForOperation } from "./parameters";
+import { ComputerStatus } from "./types";
 
-interface ComputerOutput {
-  memory: number[];
-  outputStream: number[];
-}
+export class IntcodeComputer {
+  status: ComputerStatus = "NOT_STARTED";
+  private memory: number[];
+  private inputStream: number[] = [];
+  private outputStream: number[] = [];
+  private instructionPointer: number = 0;
 
-export const runIntcodeComputerProgram = async (
-  initialMemory: number[],
-  inputStream: number[] = []
-): Promise<ComputerOutput> => {
-  let instructionPointer = 0;
-
-  let shouldContinueProgramExecution = true;
-  let memory = [...initialMemory];
-  const outputStream: number[] = [];
-
-  while (shouldContinueProgramExecution) {
-    const { nextPointer, shouldContinueExecuting } = await performNextOperation(
-      {
-        memory,
-        currentPointer: instructionPointer,
-        inputStream,
-        outputStream,
-      }
-    );
-    instructionPointer = nextPointer;
-    shouldContinueProgramExecution = shouldContinueExecuting;
+  constructor(initialMemory: number[]) {
+    this.memory = initialMemory;
   }
 
-  return { memory, outputStream };
-};
+  pushToInputStream(input: number) {
+    this.inputStream.push(input);
+  }
 
-const performNextOperation = async ({
+  getSizeOfOutputStream() {
+    return this.outputStream.length;
+  }
+
+  pullFromOutputStream() {
+    return this.outputStream.shift();
+  }
+
+  viewMemory(): number[] {
+    return [...this.memory];
+  }
+
+  run() {
+    this.status = "RUNNING";
+    while (this.status === "RUNNING") {
+      const { nextPointer, newComputerStatus } = performNextOperation({
+        memory: this.memory,
+        currentPointer: this.instructionPointer,
+        inputStream: this.inputStream,
+        outputStream: this.outputStream,
+      });
+
+      if (newComputerStatus) {
+        this.status = newComputerStatus;
+      } else {
+        this.instructionPointer = nextPointer;
+      }
+    }
+  }
+}
+
+const performNextOperation = ({
   memory,
   currentPointer,
   inputStream,
@@ -43,7 +59,7 @@ const performNextOperation = async ({
   currentPointer: number;
   inputStream: number[];
   outputStream: number[];
-}): Promise<{ shouldContinueExecuting: boolean; nextPointer: number }> => {
+}): { newComputerStatus?: ComputerStatus; nextPointer: number } => {
   const instructionCode = memory[currentPointer];
   const { opCode, parameterCodes } = processInstructionCode(instructionCode);
 
@@ -54,21 +70,20 @@ const performNextOperation = async ({
     parameterCodes,
     instructionPointer: currentPointer,
   });
-  const { shouldContinueExecuting, newInstructionPointerValue } =
-    await executeOperation({
-      memory,
-      operation,
-      parameters,
-      inputStream,
-      outputStream,
-    });
+  const { newComputerStatus, newInstructionPointerValue } = executeOperation({
+    memory,
+    operation,
+    parameters,
+    inputStream,
+    outputStream,
+  });
 
   const nextPointer =
     newInstructionPointerValue !== undefined
       ? newInstructionPointerValue
       : currentPointer + 1 + parameters.length;
   return {
-    shouldContinueExecuting,
+    newComputerStatus,
     nextPointer,
   };
 };

@@ -1,4 +1,5 @@
 import { Parameter } from "../parameters/types";
+import { ComputerStatus } from "../types";
 import {
   handleAddition,
   handleEquals,
@@ -54,7 +55,7 @@ export const getParameterCountForOperation = (operation: Operation): number => {
   }
 };
 
-export const executeOperation = async ({
+export const executeOperation = ({
   memory,
   operation,
   parameters,
@@ -66,48 +67,53 @@ export const executeOperation = async ({
   parameters: Parameter[];
   inputStream: number[];
   outputStream: number[];
-}): Promise<{
-  shouldContinueExecuting: boolean;
+}): {
+  newComputerStatus?: ComputerStatus;
   newInstructionPointerValue?: number;
-}> => {
+} => {
   switch (operation) {
     case Operation.Addition:
       handleAddition(memory, parameters as [Parameter, Parameter, Parameter]);
-      return { shouldContinueExecuting: true };
+      return {};
     case Operation.Multiplication:
       handleMultiplication(
         memory,
         parameters as [Parameter, Parameter, Parameter]
       );
-      return { shouldContinueExecuting: true };
+      return {};
     case Operation.Input:
-      await handleInput(memory, parameters as [Parameter], inputStream);
-      return { shouldContinueExecuting: true };
+      const { requiresInput } = handleInput(
+        memory,
+        parameters as [Parameter],
+        inputStream
+      );
+
+      return requiresInput ? { newComputerStatus: "AWAITING_INPUT" } : {};
     case Operation.Output:
       handleOutput(memory, parameters as [Parameter], outputStream);
-      return { shouldContinueExecuting: true };
+      return {};
     case Operation.JumpIfTrue: {
       const newInstructionPointerValue = handleJumpIfTrue(
         memory,
         parameters as [Parameter, Parameter]
       );
-      return { shouldContinueExecuting: true, newInstructionPointerValue };
+      return { newInstructionPointerValue };
     }
     case Operation.JumpIfFalse: {
       const newInstructionPointerValue = handleJumpIfFalse(
         memory,
         parameters as [Parameter, Parameter]
       );
-      return { shouldContinueExecuting: true, newInstructionPointerValue };
+      return { newInstructionPointerValue };
     }
     case Operation.LessThan:
       handleLessThan(memory, parameters as [Parameter, Parameter, Parameter]);
-      return { shouldContinueExecuting: true };
+      return {};
     case Operation.Equals:
       handleEquals(memory, parameters as [Parameter, Parameter, Parameter]);
-      return { shouldContinueExecuting: true };
+      return {};
     case Operation.FinishProgram:
-      return { shouldContinueExecuting: false };
+      return { newComputerStatus: "FINISHED" };
     default:
       throw new Error(`Unknown operation ${operation} encountered`);
   }

@@ -1,41 +1,21 @@
-import readline from "readline";
-
 import { getWriteAddress } from "../../parameters";
 import { Parameter } from "../../parameters/types";
 
 // Parameter[0] is a write parameter
 
-const readlineInterface = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
-
-const requestInput = async (): Promise<number> => {
-  return new Promise((resolve, reject) => {
-    readlineInterface.question("Enter an integer as input: ", (answer) => {
-      const integer = parseInt(answer, 10);
-      if (Number.isNaN(integer)) {
-        reject("You have not entered an integer as input");
-      }
-
-      resolve(integer);
-    });
-  });
-};
-
-export default async (
+export default (
   memory: number[],
   parameters: [Parameter],
   inputStream: number[]
-) => {
+): { requiresInput: boolean } => {
   const writeAddress = getWriteAddress(parameters[0], memory);
 
-  let inputValue: number;
-  if (inputStream.length > 0) {
-    inputValue = inputStream.shift()!;
-  } else {
-    inputValue = await requestInput();
+  if (inputStream.length === 0) {
+    return { requiresInput: true };
   }
 
+  let inputValue: number;
+  inputValue = inputStream.shift()!;
   memory[writeAddress] = inputValue;
+  return { requiresInput: false };
 };

@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs";
 
-import { runIntcodeComputerProgram } from "../intcode-computer";
+import { IntcodeComputer } from "../intcode-computer";
 
 fs.readFile(
   path.resolve(__dirname, "./input.txt"),
@@ -14,19 +14,18 @@ fs.readFile(
 
     const initialMemory: number[] = data.split(",").map((x) => parseInt(x, 10));
 
-    const memory = [...initialMemory];
+    const memoryForPart1 = [...initialMemory];
 
     // Part 1 = Prepare for 1202 program alarm state
     let noun = 12;
     let verb = 2;
 
-    initialMemory[1] = noun;
-    initialMemory[2] = verb;
+    memoryForPart1[1] = noun;
+    memoryForPart1[2] = verb;
 
-    const { memory: returnedMemory } = await runIntcodeComputerProgram(
-      initialMemory
-    );
-    const [output] = returnedMemory;
+    const computer = new IntcodeComputer(memoryForPart1);
+    computer.run();
+    const [output] = computer.viewMemory();
 
     console.log("Part 1 Solution", output);
 
@@ -36,10 +35,10 @@ fs.readFile(
         const memory = [...initialMemory];
         memory[1] = noun;
         memory[2] = verb;
-        const { memory: returnedMemory } = await runIntcodeComputerProgram(
-          memory
-        );
-        const [output] = returnedMemory;
+
+        const computer = new IntcodeComputer(memory);
+        computer.run();
+        const [output] = computer.viewMemory();
 
         if (output === targetValue) {
           console.log("Part 2 Solution", 100 * noun + verb);
