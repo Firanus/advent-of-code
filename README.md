@@ -56,6 +56,7 @@ In **2019**, there are a number of problems that involve slowly building up a VM
 - **Day 2** - We get the VM started by introducing a basic VM that can handle addition and multiplication.
 - **Day 5** - We extend our VM to handle parameter modes, comparisons operations, jump operations, input and output. Phew!
 - **Day 7** - We extend our VM to be able to block execution til it's received an input, and then string a few computers together. Fun.
+- **Day 9** - Added a new parameter more, "relative mode" to the VM, with a few more tweaks.
 
 ### Miscellaneous Algorithms
 

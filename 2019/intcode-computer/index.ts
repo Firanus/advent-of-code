@@ -9,6 +9,7 @@ export class IntcodeComputer {
   private inputStream: number[] = [];
   private outputStream: number[] = [];
   private instructionPointer: number = 0;
+  private relativeBase: number = 0;
 
   constructor(initialMemory: number[]) {
     this.memory = initialMemory;
@@ -26,6 +27,10 @@ export class IntcodeComputer {
     return this.outputStream.shift();
   }
 
+  viewOutputStream() {
+    return [...this.outputStream];
+  }
+
   viewMemory(): number[] {
     return [...this.memory];
   }
@@ -33,17 +38,20 @@ export class IntcodeComputer {
   run() {
     this.status = "RUNNING";
     while (this.status === "RUNNING") {
-      const { nextPointer, newComputerStatus } = performNextOperation({
-        memory: this.memory,
-        currentPointer: this.instructionPointer,
-        inputStream: this.inputStream,
-        outputStream: this.outputStream,
-      });
+      const { nextPointer, newComputerStatus, relativeBaseAdjustment } =
+        performNextOperation({
+          memory: this.memory,
+          currentPointer: this.instructionPointer,
+          inputStream: this.inputStream,
+          outputStream: this.outputStream,
+          relativeBase: this.relativeBase,
+        });
 
       if (newComputerStatus) {
         this.status = newComputerStatus;
       } else {
         this.instructionPointer = nextPointer;
+        this.relativeBase += relativeBaseAdjustment;
       }
     }
   }
@@ -54,12 +62,18 @@ const performNextOperation = ({
   currentPointer,
   inputStream,
   outputStream,
+  relativeBase,
 }: {
   memory: number[];
   currentPointer: number;
   inputStream: number[];
   outputStream: number[];
-}): { newComputerStatus?: ComputerStatus; nextPointer: number } => {
+  relativeBase: number;
+}): {
+  newComputerStatus?: ComputerStatus;
+  nextPointer: number;
+  relativeBaseAdjustment: number;
+} => {
   const instructionCode = memory[currentPointer];
   const { opCode, parameterCodes } = processInstructionCode(instructionCode);
 
@@ -69,8 +83,13 @@ const performNextOperation = ({
     operation,
     parameterCodes,
     instructionPointer: currentPointer,
+    relativeBase,
   });
-  const { newComputerStatus, newInstructionPointerValue } = executeOperation({
+  const {
+    newComputerStatus,
+    newInstructionPointerValue,
+    relativeBaseAdjustment,
+  } = executeOperation({
     memory,
     operation,
     parameters,
@@ -85,5 +104,6 @@ const performNextOperation = ({
   return {
     newComputerStatus,
     nextPointer,
+    relativeBaseAdjustment: relativeBaseAdjustment ?? 0,
   };
 };

@@ -6,3 +6,4 @@ export { default as handleJumpIfTrue } from "./jumpIfTrue";
 export { default as handleJumpIfFalse } from "./jumpIfFalse";
 export { default as handleLessThan } from "./lessThan";
 export { default as handleEquals } from "./equals";
+export { default as handleAdjustRelativeBase } from "./adjustRelativeBase";

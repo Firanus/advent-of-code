@@ -2,6 +2,7 @@ import { Parameter } from "../parameters/types";
 import { ComputerStatus } from "../types";
 import {
   handleAddition,
+  handleAdjustRelativeBase,
   handleEquals,
   handleInput,
   handleJumpIfFalse,
@@ -30,6 +31,8 @@ export const getOperation = (opCode: number): Operation => {
       return Operation.LessThan;
     case 8:
       return Operation.Equals;
+    case 9:
+      return Operation.AdjustRelativeBase;
     case 99:
       return Operation.FinishProgram;
     default:
@@ -49,6 +52,7 @@ export const getParameterCountForOperation = (operation: Operation): number => {
       return 2;
     case Operation.Input:
     case Operation.Output:
+    case Operation.AdjustRelativeBase:
       return 1;
     case Operation.FinishProgram:
       return 0;
@@ -70,6 +74,7 @@ export const executeOperation = ({
 }): {
   newComputerStatus?: ComputerStatus;
   newInstructionPointerValue?: number;
+  relativeBaseAdjustment?: number;
 } => {
   switch (operation) {
     case Operation.Addition:
@@ -112,6 +117,12 @@ export const executeOperation = ({
     case Operation.Equals:
       handleEquals(memory, parameters as [Parameter, Parameter, Parameter]);
       return {};
+    case Operation.AdjustRelativeBase:
+      const { relativeBaseAdjustment } = handleAdjustRelativeBase(
+        memory,
+        parameters as [Parameter]
+      );
+      return { relativeBaseAdjustment };
     case Operation.FinishProgram:
       return { newComputerStatus: "FINISHED" };
     default:

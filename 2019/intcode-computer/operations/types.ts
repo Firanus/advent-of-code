@@ -7,5 +7,6 @@ export enum Operation {
   JumpIfFalse,
   LessThan,
   Equals,
+  AdjustRelativeBase,
   FinishProgram,
 }
