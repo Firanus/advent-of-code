@@ -13,6 +13,7 @@ So far, years I've tackled:
 - [2017](https://adventofcode.com/2017) - In progress
 - [2019](https://adventofcode.com/2019) - In progress
 - [2021](https://adventofcode.com/2021) - **Complete**
+- [2022](https://adventofcode.com/2022) - In progress
 
 ## Follow-up Tasks
 
