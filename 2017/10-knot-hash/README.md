@@ -23,6 +23,10 @@ Part 2 just involved doing a lot of more CS-ey things to the problem. `XOR` ops,
 `charCodeAt`, and the like. Still, nothing actually too conceptually difficult
 there, just important to carefully parse the problem and execute accordingly.
 
+EDIT: It turns out day 14 needs the code we wrote for Part 2. Thus, I have now
+refactored part 2 to use the shared `createKnotHash` code that's been moved into
+a shared file.
+
 ```sh
 node 2017/10-knot-hash/part2/index.js
 ```
