@@ -31,6 +31,7 @@ These problems are all about trees, and traversing them.
 
 - **2017 Day 7** - The problem is essentially constructing a tree from your input and then finding various properties of it.
 - **2021 Day 18** - Snailfish. This is a problem about decoding a series of brackets containing pairs of numbers, which have random rules for expansion. One way of viewing the problem is that the brackets just represent a BST. You can then build the structure and analyse it accordingly. Note that while a tree is a valid way to go about this, avoiding trees entirely also works.
+- **2022 Day 7** - In this problem, your input is essentially the traversal of a file directory using `cd` and `ls` commands. I solved it by rebuilding the tree of files and traversing it, but you could actually also do it by using the fact that the input was already a traversal, and just store the filepaths in a hashmap.
 
 ### Pathfinding - e.g. Djikstra's Algorithm
 
@@ -40,7 +41,7 @@ These problems involve pathfinding and their associated algorithms in some way. 
 - **2021 Day 15** - Chiton. A pure pathfinding problem. You're given a grid of numbers ("risk levels") and asked to find a path which minimises total risk. Classic use case for Djikstra.
 - **2021 Day 23** - This problem introduces a game and asks you to find the most efficient solution. I ended up having to write a full simulation of the game, and then run the game states through Djikstra's to find the shortest "path" from start to finish.
 
-- **2021 Day 11** - Not strictly a pathfinding problem, but interesting nonetheless, because it requires you to navigate a set path on a hexagonal grid.
+- **2017 Day 11** - Not strictly a pathfinding problem, but interesting nonetheless, because it requires you to navigate a set path on a hexagonal grid.
 
 ### Memoization and Compression
 
@@ -58,6 +59,8 @@ In **2019**, there are a number of problems that involve slowly building up a VM
 - **Day 5** - We extend our VM to handle parameter modes, comparisons operations, jump operations, input and output. Phew!
 - **Day 7** - We extend our VM to be able to block execution til it's received an input, and then string a few computers together. Fun.
 - **Day 9** - Added a new parameter more, "relative mode" to the VM, with a few more tweaks.
+
+As an aside, **2022 Day 10** actually also involves thinking about registers to eventually draw on the screen. The input is much less involved than a full Intcode computer, however.
 
 ### Miscellaneous Algorithms
 
