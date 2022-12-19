@@ -13,10 +13,6 @@ type Bounds = {
 };
 
 const encodePoint = ({ x, y, z }: Point) => `${x},${y},${z}`;
-const decodePoint = (str: string): Point => {
-  const [x, y, z] = str.split(",");
-  return { x: parseInt(x), y: parseInt(y), z: parseInt(z) };
-};
 
 const getPointsAirReaches = (dropletGrid: DropletGrid): Set<string> => {
   const CUBE_SIZE = dropletGrid.length;
