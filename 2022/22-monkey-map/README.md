@@ -8,6 +8,10 @@ was all hunky dorry. Part 2 involves a total rewrite of the wrapping logic I
 didn't see coming. Your input is actually the 6 faces of a cube laid out, and
 you have to wrap from grid face to grid face.
 
+I ended up actually cutting up a bit of paper into the shape of my input to more
+easily visualise how the cube sides come together. As a result, there's some
+hardcoding in here. Be interested to see what the real general solution is. :)
+
 Given the total rewrite, I split this one into two parts.
 
 To solve Part 1, run the following from the project root:
