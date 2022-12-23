@@ -6,6 +6,8 @@ Interesting problem today. We're essentially simulating diffusion of particles
 on a 2D grid. There's a fair amount of weirdness that doesn't translate to, e.g.
 air particles, but it's pretty cool nonetheless watching the grid expand.
 
+EDIT: On talking to Luke, a closer analogue to this is the Game of Life. What fun!
+
 Pleased today that I saw Part 2 coming, so I only had a 1 minute delta time between
 part 1 and part 2. :)
 
