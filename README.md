@@ -56,6 +56,13 @@ These problems rely on you storing information in the problem in a more optimal 
 - **2021 Day 21** - Dirac Dice. This problem introduces many many game states in the second part. Finding an efficient way to store them is the key to a quick solution.
 - **2022 Day 11** - Monkey In The Middle. This problem deals with expanding numbers. The interesting part is that in part 2, you're asked to come up with your own way to keep the numbers managable without blowing up the core logic of the algorithm.
 
+### 2D Cellular Automata AKA Conway's Game of Life
+
+There's usually a problem every year that ends up being some kind of implementation of Conway's Game of Life. These are often very visual, and quite fun!
+
+- **2021 Day 20** - Image Enhancement Algotithm. The interesting twist in this problem is that, because of how the rules are set up, the infinite grid you're dealing with actually flashes on and off every other iteration. Leads to some cool patterns, and a need to be careful in how you code it up to make sure you don't miss that.
+- **2022 Day 23** - Unstable Diffusion. Another interesting twist on the game that leads simulates diffusion. The particles (well, elves, in the problem) essentially try to move away from each other until they've reached stability.
+
 ### Intcode Computer
 
 In **2019**, there are a number of problems that involve slowly building up a VM day-by-day. They are:
