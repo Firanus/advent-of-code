@@ -13,7 +13,7 @@ So far, years I've tackled:
 - [2017](https://adventofcode.com/2017) - In progress
 - [2019](https://adventofcode.com/2019) - In progress
 - [2021](https://adventofcode.com/2021) - 🎄 **Complete** 🎄
-- [2022](https://adventofcode.com/2022) - In progress
+- [2022](https://adventofcode.com/2022) - 🎄 **Complete** 🎄
 
 ## Follow-up Tasks
 
@@ -43,6 +43,7 @@ These problems involve pathfinding and their associated algorithms in some way. 
 - **2022 Day 12** - Pure pathfinding. You have to navigate a map of variable heights. Implemented A\* Search here for the first time, though the impact was minimal in this case.
 - **2022 Day 16** - A truly evil graph traversal problem, and easily the hardest problem of the entirety of 2022. Ultimately, you're given a graph of points to work with, and conditions for traversal that essentially work out as a game you need to find the optimal solution for. This works out partially as tree traversal, but ultimately the real nightmare here is trying to find ways to prune the list of nodes you need to explore dramatically without affecting the answer. Ultimately, about a half dozen such heuristics and a DFS got me to a solution, but the runtime is far from desirable.
 - **2022 Day 19** - Essentially an easier 2022 - Day 16. Again, the main goal is to prune the options you need to search, but it's far easier to do so. Day 16 might've been good prep.
+- **2022 Day 24** - A pathfinding problem on a changing grid. However, the grid changed on a cycle, which meant you could work out all the board states in advance. As a result, this problem was very amenable to Djikstra's :)
 
 - **2017 Day 11** - Not strictly a pathfinding problem, but interesting nonetheless, because it requires you to navigate a set path on a hexagonal grid.
 
