@@ -49,45 +49,78 @@ const isPartialGroupValid = (
   );
 };
 
-const generateAllGroups = (
+const generateAllGroupsWithCounts = (
   damagedGroup: string[],
   allowedContinguousLengths: number[]
-): string[][] => {
-  let groups: string[][] = [[]];
+): { [key: string]: number } => {
+  let groupCounts = {} as { [key: string]: number };
 
   for (let i = 0; i < damagedGroup.length; i++) {
+    const existingGroups = Object.keys(groupCounts);
+    const newGroupCounts = {} as { [key: string]: number };
+
     if (damagedGroup[i] === "?") {
-      groups = groups.flatMap((g) => [
-        [...g, "#"],
-        [...g, "."],
-      ]);
+      for (const group of existingGroups) {
+        newGroupCounts[group + "#"] = groupCounts[group] || 1;
+        newGroupCounts[group + "."] = groupCounts[group] || 1;
+      }
+      if (existingGroups.length === 0) {
+        newGroupCounts["#"] = 1;
+        newGroupCounts["."] = 1;
+      }
     } else {
-      groups = groups.map((g) => [...g, damagedGroup[i]]);
+      for (const group of existingGroups) {
+        newGroupCounts[group + damagedGroup[i]] = groupCounts[group] || 1;
+      }
+      if (existingGroups.length === 0) {
+        newGroupCounts[damagedGroup[i]] = 1;
+      }
     }
 
-    // Compress dots.
-    groups = groups.map((g) =>
-      g.filter((c, i) => c !== "." || (i > 0 && c !== g[i - 1]))
-    );
+    // Compress dots
+    for (const group of Object.keys(newGroupCounts)) {
+      const compressedGroup = group
+        .split("")
+        .filter((c, i) => c !== "." || (i > 0 && c !== group[i - 1]))
+        .join("");
 
-    groups = groups.filter((g) =>
-      isPartialGroupValid(g, allowedContinguousLengths)
-    );
+      if (compressedGroup !== group) {
+        newGroupCounts[compressedGroup] =
+          (newGroupCounts[compressedGroup] ?? 0) + newGroupCounts[group];
+        delete newGroupCounts[group];
+      }
+    }
+
+    // Remove invalid groups
+    for (const group of Object.keys(newGroupCounts)) {
+      if (!isPartialGroupValid(group.split(""), allowedContinguousLengths)) {
+        delete newGroupCounts[group];
+      }
+    }
+
+    groupCounts = newGroupCounts;
   }
 
-  return groups;
+  return groupCounts;
 };
 
 const countPossibleGroups = (
   damagedGroup: string[],
   allowedContinguousLengths: number[]
-): number =>
-  generateAllGroups(damagedGroup, allowedContinguousLengths).filter((g) =>
-    isFullGroupValid(g, allowedContinguousLengths)
-  ).length;
+): number => {
+  const groupCounts = generateAllGroupsWithCounts(
+    damagedGroup,
+    allowedContinguousLengths
+  );
+  const validGroups = Object.keys(groupCounts).filter((g) =>
+    isFullGroupValid(g.split(""), allowedContinguousLengths)
+  );
+
+  return validGroups.reduce((acc, group) => acc + groupCounts[group], 0);
+};
 
 fs.readFile(
-  path.resolve(__dirname, "./testInput.txt"),
+  path.resolve(__dirname, "./input.txt"),
   "utf8",
   async (err, data) => {
     if (err) {
@@ -97,8 +130,8 @@ fs.readFile(
 
     const [possibleGroupsPart1, possibleGroupsPart2] = data
       .split("\n")
-      .map((row) => {
-        console.log(row);
+      .map((row, index, arr) => {
+        console.log("Processing row", index, "of", arr.length, "...");
         const [damagedGroup, allowedContinguousLengthsRaw] = row.split(" ");
         const allowedContinguousLengths = allowedContinguousLengthsRaw
           .split(",")
@@ -123,8 +156,6 @@ fs.readFile(
         ],
         [[], []] as number[][]
       );
-
-    console.log(possibleGroupsPart1, possibleGroupsPart2);
 
     console.log(
       "Part 1 Solution -",
