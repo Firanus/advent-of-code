@@ -1,6 +1,5 @@
 import path from "path";
 import fs from "fs";
-import { group } from "console";
 
 const calculateExistingContiguousLengths = (group: string[]) =>
   group.reduce((acc, char, index) => {
