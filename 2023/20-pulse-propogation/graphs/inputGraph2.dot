@@ -1,0 +1,18 @@
+digraph input {
+  kc -> sd, kf
+  sd -> zk, kf, gq, lz, kc, vf
+  kf -> dh
+  zk -> rp
+  gq -> dp
+  lz -> cs
+  vf -> zk
+  dh -> bm, sd
+  rp -> gq, sd
+  dp -> sd, cc
+  cs -> rx
+  bm -> vf, sd
+  cc -> sd, jk
+  jk -> sd, vh
+  vh -> sd
+  broadcaster -> kc
+}

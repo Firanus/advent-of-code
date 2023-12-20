@@ -1,0 +1,18 @@
+digraph input {
+  fm -> dx, zv
+  dx -> tx
+  zv -> ns, dx, hl, hn, fm
+  tx -> cm, zv
+  ns -> db
+  hl -> gr
+  hn -> cs
+  cm -> zv, hl
+  db -> zv, zz
+  gr -> ns, zv
+  cs -> rx
+  zz -> px, zv
+  px -> zv, sn
+  sn -> zv, jd
+  jd -> zv
+  broadcaster -> fm
+}
