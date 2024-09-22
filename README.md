@@ -14,12 +14,14 @@ So far, years I've tackled:
 - [2019](https://adventofcode.com/2019) - In progress
 - [2021](https://adventofcode.com/2021) - 🎄 **Complete** 🎄
 - [2022](https://adventofcode.com/2022) - 🎄 **Complete** 🎄
+- [2023](https://adventofcode.com/2023) - 🎄 **Complete** 🎄
 
 ## Follow-up Tasks
 
 The following is a reference to follow up tasks I've made notes on in other places that would be fun to tackle. More information is provided in the READMEs of the day in question.
 
 - 2022 - Day 16: Finish optimising the solution so the runtime is less than half an hour
+- 2023 - Day 25: Write an actual elegant soluton for this instead of the heap of nonsense you have atm.
 
 ## Helpful Bits of Code
 
