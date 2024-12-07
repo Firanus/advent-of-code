@@ -12,12 +12,16 @@ fs.readFile(
 
     const equations = data.split("\n").map((line) => parseInput(line));
     const partOneSolution = equations.reduce((acc, equation) => {
-      const allResults = processInputs(equation.inputs);
+      const allResults = processInputs(equation.inputs, false);
+      return allResults.includes(equation.result) ? acc + equation.result : acc;
+    }, 0);
+    const partTwoSolution = equations.reduce((acc, equation) => {
+      const allResults = processInputs(equation.inputs, true);
       return allResults.includes(equation.result) ? acc + equation.result : acc;
     }, 0);
 
     console.log("Part 1 Solution - ", partOneSolution);
-    // console.log("Part 2 Solution - ", partTwoSolution);
+    console.log("Part 2 Solution - ", partTwoSolution);
   }
 );
 
@@ -33,14 +37,22 @@ const parseInput = (input: string): Equation => {
   return { result, inputs };
 };
 
-const processInputs = (inputs: number[]): number[] => {
+const processInputs = (inputs: number[], isPart2: boolean): number[] => {
   if (inputs.length === 1) return inputs;
   const results: number[] = [];
   const addInput = [inputs[0] + inputs[1], ...inputs.slice(2)];
   const multiplyInput = [inputs[0] * inputs[1], ...inputs.slice(2)];
 
-  results.push(...processInputs(addInput));
-  results.push(...processInputs(multiplyInput));
+  results.push(...processInputs(addInput, isPart2));
+  results.push(...processInputs(multiplyInput, isPart2));
+
+  if (isPart2) {
+    const concatenationInput = [
+      parseInt(inputs[0].toString() + inputs[1].toString(), 10),
+      ...inputs.slice(2),
+    ];
+    results.push(...processInputs(concatenationInput, isPart2));
+  }
 
   return results;
 };
