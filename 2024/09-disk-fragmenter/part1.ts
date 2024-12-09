@@ -10,9 +10,9 @@ fs.readFile(
       return;
     }
 
-    // Create array of dense inputs, and iterate towards middle.
     const rawData = data.split("").map((char) => parseInt(char, 10));
 
+    // Create array of dense inputs.
     let isFile = true;
     let idNumber = 0;
     const denseData: [number | undefined, number][] = [];
@@ -25,6 +25,7 @@ fs.readFile(
       isFile = !isFile;
     }
 
+    // Iterate from both ends to fill the disk.
     const finalDisk: number[] = [];
     while (denseData.length > 0) {
       const [id, length] = denseData.shift()!;
@@ -50,11 +51,7 @@ fs.readFile(
       }
     }
 
-    const partOneSolution = finalDisk.reduce(
-      (acc, id, index) => acc + id * index,
-      0
-    );
-    console.log("Part 1 Solution - ", partOneSolution);
-    // console.log("Part 2 Solution - ", partTwoSolution);
+    const solution = finalDisk.reduce((acc, id, index) => acc + id * index, 0);
+    console.log("Solution - ", solution);
   }
 );
