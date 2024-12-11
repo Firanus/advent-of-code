@@ -1,6 +1,9 @@
 import path from "path";
 import fs from "fs";
 
+const encode = (num: number) => num.toString();
+const decode = (str: string) => parseInt(str, 10);
+
 fs.readFile(
   path.resolve(__dirname, "./input.txt"),
   "utf8",
@@ -12,22 +15,42 @@ fs.readFile(
 
     const stones: number[] = data.split(' ').map((s) => parseInt(s, 10))
 
-    const iterations = 25;
-    const finalStones: number[] = []
-    for (let i = 0; i < stones.length; i++) {
-        const stone = stones[i];
-        let currentStones = [stone];
-        for (let j = 0; j < iterations; j++) {
-            const localStones = currentStones.flatMap((ls) => executeRulesOnStone(ls))
-            currentStones = localStones;
-        }
-        finalStones.push(...currentStones);
-    }
-
-    console.log("Part 1 Solution - ", finalStones.length);
-    // console.log("Part 2 Solution - ", partTwoSolution);
+    console.log("Part 1 Solution - ", iterateOverStones(stones, 25));
+    console.log("Part 2 Solution - ", iterateOverStones(stones, 75));
   }
 );
+
+const iterateOverStones = (stones: number[], iterations: number) => {
+    let countsOfNumbers: {[key: string]: number} = {};
+    for (let i = 0; i < stones.length; i++) {
+        const key = encode(stones[i]);
+        if (!countsOfNumbers[key]) {
+            countsOfNumbers[key] = 1;
+        } else {
+            countsOfNumbers[key] += 1;        
+        }
+    }
+
+    for (let i = 0; i < iterations; i++) {
+        const newCounts: {[key: string]: number} = {};
+        Object.keys(countsOfNumbers).forEach((key) => {
+            const val = decode(key);
+            const count = countsOfNumbers[key];
+            const result = executeRulesOnStone(val);
+            result.forEach((res) => {
+                const resKey = encode(res);
+                if (!newCounts[resKey]) {
+                    newCounts[resKey] = count;
+                } else {
+                    newCounts[resKey] += count;        
+                }       
+            })
+        })
+        countsOfNumbers = newCounts;
+    }
+
+    return Object.values(countsOfNumbers).reduce((acc, curr) => acc + curr, 0)
+}
 
 const executeRulesOnStone = (stone: number): number[] => {
     if (stone === 0) {
